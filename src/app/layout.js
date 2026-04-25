@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeaderCompoenent from "@/components/layout/header.jsx";
 import FooterCompoenent from "@/components/layout/footer.jsx";
+import Spline from "@splinetool/react-spline";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +26,17 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-    
+        <div className="fixed inset-0 z-0">
+          <Spline
+            className="w-full h-full"
+            scene="https://prod.spline.design/DC-3uEfFpDwxd-1p/scene.splinecode"
+          />
+        </div>
         <HeaderCompoenent/>
+    <div className="min-h-screen flex items-center justify-center relative z-10 pointer-events-none">  
         <main>{children}</main>
         <FooterCompoenent/>
-
+    </div>
       </body>
     </html>
   );
