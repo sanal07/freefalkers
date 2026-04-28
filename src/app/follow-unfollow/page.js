@@ -20,7 +20,7 @@ export default function MiddleComponent() {
       const data = await HandleFile(val);
       setFollowersList(data);
     } catch (err) {
-      console.error("Something Went Wrong", err.message);
+      throw new Error("Somthing went wrong", err.message);
     }
   };
 
@@ -34,12 +34,14 @@ export default function MiddleComponent() {
   };
 
   return (
-    <div className="pointer-events-auto w-[90%] max-w-lg p-8 rounded-2xl backdrop-blur-lg bg-white/10 border border-white/20 shadow-xl text-white">
-      <h1 className="text-2xl font-semibold mb-4">
+    <div className="pointer-events-auto w-[92%] sm:w-[85%] max-w-lg p-5 sm:p-8 rounded-2xl backdrop-blur-lg bg-white/10 border border-white/20 shadow-xl text-white">
+
+      <h1 className="text-lg sm:text-2xl font-semibold mb-4 leading-snug">
         Find Who Don&apos;t Follow You Back
       </h1>
 
-      <div className="flex justify-center gap-6">
+      <div className="flex justify-center gap-3 sm:gap-6">
+
         <div
           onClick={() => follwersRef.current.click()}
           onDragOver={(e) => e.preventDefault()}
@@ -47,7 +49,7 @@ export default function MiddleComponent() {
             e.preventDefault();
             handleClickFollwers(e.dataTransfer.files[0]);
           }}
-          className="border-2 border-dashed border-white/40 rounded-xl w-1/2 p-6 text-center bg-white/5 backdrop-blur-md hover:bg-white/10 transition cursor-pointer"
+          className="border-2 border-dashed border-white/40 rounded-xl w-1/2 p-4 sm:p-6 text-center bg-white/5 backdrop-blur-md hover:bg-white/10 transition cursor-pointer"
         >
           <input
             ref={follwersRef}
@@ -56,8 +58,10 @@ export default function MiddleComponent() {
             accept=".json"
             onChange={(e) => handleClickFollwers(e.target.files[0])}
           />
-          <p className="font-medium">Followers</p>
-          <p className="text-sm opacity-70 mt-2">Drop followers.json here</p>
+          <p className="font-medium text-sm sm:text-base">Followers</p>
+          <p className="text-xs sm:text-sm opacity-70 mt-1 sm:mt-2">
+            Drop followers.json here
+          </p>
           {followersList && (
             <p className="text-green-400 text-xs mt-1">✓ Loaded</p>
           )}
@@ -70,7 +74,7 @@ export default function MiddleComponent() {
             e.preventDefault();
             handleClickFollwing(e.dataTransfer.files[0]);
           }}
-          className="border-2 border-dashed border-white/40 rounded-xl w-1/2 p-6 text-center bg-white/5 backdrop-blur-md hover:bg-white/10 transition cursor-pointer"
+          className="border-2 border-dashed border-white/40 rounded-xl w-1/2 p-4 sm:p-6 text-center bg-white/5 backdrop-blur-md hover:bg-white/10 transition cursor-pointer"
         >
           <input
             ref={followingRef}
@@ -79,33 +83,35 @@ export default function MiddleComponent() {
             accept=".json"
             onChange={(e) => handleClickFollwing(e.target.files[0])}
           />
-          <p className="font-medium">Following</p>
-          <p className="text-sm opacity-70 mt-2">Drop following.json here</p>
+          <p className="font-medium text-sm sm:text-base">Following</p>
+          <p className="text-xs sm:text-sm opacity-70 mt-1 sm:mt-2">
+            Drop following.json here
+          </p>
           {followingList && (
             <p className="text-green-400 text-xs mt-1">✓ Loaded</p>
           )}
         </div>
+
       </div>
 
       {nonFollowers && (
-        <div className="mt-6 w-full">
-          <p className="text-sm opacity-70 mb-2">
+        <div className="mt-5 sm:mt-6 w-full">
+          <p className="text-xs sm:text-sm opacity-70 mb-2">
             {nonFollowers.length}{" "}
-            {nonFollowers.length !== 1 ? "accounts" : "account"} don&apos;t
-            follow you back
+            {nonFollowers.length !== 1 ? "accounts" : "account"} don&apos;t follow you back
           </p>
-          <ul className="max-h-64 overflow-y-auto flex flex-col gap-2">
+          <ul className="max-h-52 sm:max-h-64 overflow-y-auto flex flex-col gap-1.5 sm:gap-2">
             {nonFollowers.map((name, index) => (
               <li
                 key={index}
-                className="flex items-center justify-between bg-white/10 rounded-lg px-4 py-2 text-sm"
+                className="flex items-center justify-between bg-white/10 rounded-lg px-3 sm:px-4 py-2 text-xs sm:text-sm"
               >
-                <span>{name}</span>
+                <span className="truncate mr-2">{name}</span>
                 <a
                   href={`https://instagram.com/${name}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-pink-400 hover:text-pink-300 text-xs underline"
+                  className="text-pink-400 hover:text-pink-300 text-xs underline shrink-0"
                 >
                   View
                 </a>
@@ -114,6 +120,7 @@ export default function MiddleComponent() {
           </ul>
         </div>
       )}
+
     </div>
   );
 }
